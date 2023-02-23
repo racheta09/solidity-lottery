@@ -1,6 +1,8 @@
 {
-  "solidity.compileUsingRemoteVersion": "v0.6.6+commit.6c089d02",
   "marquee.widgets.npm-stats.packageNames": [
-    "ethereum-lottery-smart-contract"
-  ]
+    "solidity-lottery"
+  ],
+  "eslint.workingDirectories": [
+    "./dapp",
+]
 }
