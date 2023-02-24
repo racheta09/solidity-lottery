@@ -10,7 +10,7 @@ import {
 
 export default function EnterLottery() {
     const erccontractaddress = "0x7c19bC82119F535Ee18b759aAE81d4b5D95E4d3d"
-    const lotcontractaddress = "0xab3148C540c8791d290C6e5C12643298D4f68a7b"
+    const lotcontractaddress = "0x69e795F21B5De63914694aEd4994ad5B0198cd4A"
 
     return (
         <div className="flex flex-col justify-center">

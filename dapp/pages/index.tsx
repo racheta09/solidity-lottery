@@ -17,30 +17,7 @@ import EnterLottery from "@/components/enterLottery"
 
 export default function Home() {
     const erccontractaddress = "0x7c19bC82119F535Ee18b759aAE81d4b5D95E4d3d"
-    const lotcontractaddress = "0xab3148C540c8791d290C6e5C12643298D4f68a7b"
-    const { data: erccontract } = useContract(erccontractaddress)
-    const { data: lotcontract } = useContract(lotcontractaddress)
-    // const { data, isLoading, error } = useContractRead(
-    //     erccontract,
-    //     "totalSupply"
-    // )
-    const { mutateAsync, isLoading, error } = useContractWrite(
-        lotcontract,
-        "setLotteryRules"
-    )
-    const [lotteryRules, setLotteryRules] = useState({
-        numOfWinners: "",
-        playersLimit: "",
-        registrationAmount: "",
-        adminFee: "",
-        tokenAddress: "",
-    })
-
-    const formHandler = (e: any, values: any) => {
-        setLotteryRules({ ...lotteryRules, [values]: e.target.value })
-    }
-
-    const startLottery = () => {}
+    const lotcontractaddress = "0x69e795F21B5De63914694aEd4994ad5B0198cd4A"
     return (
         <>
             <Head>
@@ -57,7 +34,7 @@ export default function Home() {
             </Head>
             <main className="flex flex-col m-8 p-8 align-middle justify-center">
                 <div>
-                    <StartLottery />
+                    <StartLottery/>
                     <EnterLottery />
                 </div>
             </main>
