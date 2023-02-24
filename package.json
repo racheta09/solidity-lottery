@@ -15,5 +15,6 @@
     "main": "index.js",
     "repository": "https://github.com/racheta09/solidity-lottery.git",
     "author": "racheta <surajshogun@gmail.com>",
-    "license": "MIT"
+    "license": "MIT",
+    "devDependencies": {}
 }

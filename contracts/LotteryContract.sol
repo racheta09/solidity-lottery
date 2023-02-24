@@ -20,7 +20,7 @@ contract LotteryContract is ERC20, ReentrancyGuard, Ownable {
         uint256 registrationAmount;
         uint256 adminFeePercentage;
         address lotteryTokenAddress;
-        uint256 randomSeed;
+        // uint256 randomSeed;
         uint256 startedAt;
     }
 
@@ -103,24 +103,24 @@ contract LotteryContract is ERC20, ReentrancyGuard, Ownable {
      * - the contract must have a balance of at least `fee` required for VRF.
      */
     // function getRandomNumber(uint256 userProvidedSeed)
-    function getRandomNumber() public // returns (bytes32 requestId)
-    {
-        // require(
-        //     LINK.balanceOf(address(this)) >= fee,
-        //     "Not enough LINK - fill contract with faucet"
-        // );
-        // isRandomNumberGenerated = false;
-        // return requestRandomness(keyHash, fee, userProvidedSeed);
-        bytes32 blockHash = blockhash(
-            block.number - lotteryConfig.playersLimit
-        );
-        uint256 randomNumber = uint256(
-            keccak256(abi.encodePacked(block.timestamp, blockHash))
-        );
-        randomResult = randomNumber;
-        isRandomNumberGenerated = true;
-        emit RandomNumberGenerated(randomResult);
-    }
+    // function getRandomNumber() public onlyOwner // returns (bytes32 requestId)
+    // {
+    //     // require(
+    //     //     LINK.balanceOf(address(this)) >= fee,
+    //     //     "Not enough LINK - fill contract with faucet"
+    //     // );
+    //     // isRandomNumberGenerated = false;
+    //     // return requestRandomness(keyHash, fee, userProvidedSeed);
+    //     bytes32 blockHash = blockhash(
+    //         block.number - lotteryConfig.playersLimit
+    //     );
+    //     uint256 randomNumber = uint256(
+    //         keccak256(abi.encodePacked(block.timestamp, blockHash))
+    //     );
+    //     randomResult = randomNumber;
+    //     isRandomNumberGenerated = true;
+    //     emit RandomNumberGenerated(randomResult);
+    // }
 
     /**
      * @dev The callback function of ChainLink Oracle when the
@@ -158,8 +158,7 @@ contract LotteryContract is ERC20, ReentrancyGuard, Ownable {
         uint256 playersLimit,
         uint256 registrationAmount,
         uint256 adminFeePercentage,
-        address lotteryTokenAddress,
-        uint256 randomSeed
+        address lotteryTokenAddress // uint256 randomSeed
     ) public {
         require(
             msg.sender == adminAddress,
@@ -179,7 +178,7 @@ contract LotteryContract is ERC20, ReentrancyGuard, Ownable {
             registrationAmount,
             adminFeePercentage,
             lotteryTokenAddress,
-            randomSeed,
+            // randomSeed,
             block.timestamp
         );
         lotteryStatus = LotteryStatus.INPROGRESS;
@@ -253,14 +252,21 @@ contract LotteryContract is ERC20, ReentrancyGuard, Ownable {
      * - The Lottery is in progress.
      */
     function settleLottery() public onlyOwner {
-        require(
-            isRandomNumberGenerated,
-            "Lottery Configuration still in progress. Please try in a short while"
-        );
+        // require(
+        //     isRandomNumberGenerated,
+        //     "Lottery Configuration still in progress. Please try in a short while"
+        // );
         require(
             lotteryStatus == LotteryStatus.INPROGRESS,
             "The Lottery is not started or closed"
         );
+        bytes32 blockHash = blockhash(
+            block.number - lotteryConfig.playersLimit
+        );
+        uint256 randomNumber = uint256(
+            keccak256(abi.encodePacked(block.timestamp, blockHash))
+        );
+        randomResult = randomNumber;
         for (uint256 i = 0; i < lotteryConfig.numOfWinners; i = i.add(1)) {
             uint256 winningIndex = randomResult.mod(lotteryPlayers.length);
             uint256 counter = 0;
