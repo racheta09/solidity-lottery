@@ -38,7 +38,7 @@ export default function StartLottery() {
                 {lotteryStatus == 1 && "In Progress"}
                 {lotteryStatus == 2 && "Closed"}
             </h2>
-            <form className="flex flex-col justify-center">
+            <div className="flex flex-col justify-center">
                 <label htmlFor="numOfWinners" className="m-2 p-2">
                     Number of Winners:
                 </label>
@@ -107,7 +107,7 @@ export default function StartLottery() {
                 {/* <span className={isLoading ? "" : error ? "text-red-600" : "text-green-600"}>
                     {isLoading ? "": error? error.toString(): .toString()}
                 </span> */}
-            </form>
+            </div>
         </div>
     )
 }
