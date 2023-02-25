@@ -44,7 +44,7 @@ export default function EnterLottery() {
                 }}
                 className="m-2 p-2"
             >
-                settleLottery
+                Settle Lottery
             </Web3Button>
         </div>
     )

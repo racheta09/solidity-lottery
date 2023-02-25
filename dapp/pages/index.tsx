@@ -13,6 +13,7 @@ import {
 
 import StartLottery from "@/components/startLottery"
 import EnterLottery from "@/components/enterLottery"
+import ClaimReward from "@/components/claimReward"
 // const inter = Inter({ subsets: ["latin"] })
 
 export default function Home() {
@@ -33,10 +34,9 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className="flex flex-col m-8 p-8 align-middle justify-center">
-                <div>
-                    <StartLottery/>
-                    <EnterLottery />
-                </div>
+                <StartLottery />
+                <EnterLottery />
+                <ClaimReward />
             </main>
         </>
     )
