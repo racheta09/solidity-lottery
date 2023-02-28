@@ -5,19 +5,10 @@ import {
     useContract,
     Web3Button,
 } from "@thirdweb-dev/react"
-
-// const inter = Inter({ subsets: ["latin"] })
-
-export default function StartLottery() {
-    const erccontractaddress = "0x7c19bC82119F535Ee18b759aAE81d4b5D95E4d3d"
-    const lotcontractaddress = "0x69e795F21B5De63914694aEd4994ad5B0198cd4A"
-    // const { data: erccontract } = useContract(erccontractaddress)
-    const { data: lotcontract } = useContract(lotcontractaddress)
-    const { data: lotteryStatus } = useContractRead(
-        lotcontract,
-        "lotteryStatus"
-    )
-    const { mutateAsync } = useContractWrite(lotcontract, "setLotteryRules")
+interface StartLotteryProps{
+    lotContractAddress: string
+}
+export default function StartLottery({lotContractAddress}: StartLotteryProps) {
     const [lotteryRules, setLotteryRules] = useState({
         numOfWinners: "",
         playersLimit: "",
@@ -26,18 +17,13 @@ export default function StartLottery() {
         tokenAddress: "",
     })
 
-    const formHandler = (e: any, values: any) => {
+    const inputHandler = (e: any, values: any) => {
         setLotteryRules({ ...lotteryRules, [values]: e.target.value })
     }
-    console.log(lotteryStatus)
     return (
         <div className="flex flex-col justify-center">
             <h1 className="text-center text-2xl m-2 p-2">Start Lottery</h1>
-            <h2 className="text-center text-xl m-2 p-2">
-                Lottery {lotteryStatus == 0 && "Not Started"}
-                {lotteryStatus == 1 && "In Progress"}
-                {lotteryStatus == 2 && "Closed"}
-            </h2>
+
             <div className="flex flex-col justify-center">
                 <label htmlFor="numOfWinners" className="m-2 p-2">
                     Number of Winners:
@@ -45,7 +31,7 @@ export default function StartLottery() {
                 <input
                     type="text"
                     name="numOfWinners"
-                    onChange={(e) => formHandler(e, "numOfWinners")}
+                    onChange={(e) => inputHandler(e, "numOfWinners")}
                     value={lotteryRules.numOfWinners}
                     className="rounded m-2 p-2"
                 />
@@ -55,7 +41,7 @@ export default function StartLottery() {
                 <input
                     type="text"
                     name="playersLimit"
-                    onChange={(e) => formHandler(e, "playersLimit")}
+                    onChange={(e) => inputHandler(e, "playersLimit")}
                     value={lotteryRules.playersLimit}
                     className="rounded m-2 p-2"
                 />
@@ -65,7 +51,7 @@ export default function StartLottery() {
                 <input
                     type="text"
                     name="registrationAmount"
-                    onChange={(e) => formHandler(e, "registrationAmount")}
+                    onChange={(e) => inputHandler(e, "registrationAmount")}
                     value={lotteryRules.registrationAmount}
                     className="rounded m-2 p-2"
                 />
@@ -75,7 +61,7 @@ export default function StartLottery() {
                 <input
                     type="text"
                     name="adminFee"
-                    onChange={(e) => formHandler(e, "adminFee")}
+                    onChange={(e) => inputHandler(e, "adminFee")}
                     value={lotteryRules.adminFee}
                     className="rounded m-2 p-2"
                 />
@@ -85,28 +71,26 @@ export default function StartLottery() {
                 <input
                     type="text"
                     name="tokenAddress"
-                    onChange={(e) => formHandler(e, "tokenAddress")}
+                    onChange={(e) => inputHandler(e, "tokenAddress")}
                     value={lotteryRules.tokenAddress}
                     className="rounded m-2 p-2"
                 />
                 <Web3Button
-                    contractAddress={lotcontractaddress}
-                    action={() =>
-                        mutateAsync([
+                    contractAddress={lotContractAddress}
+                    action={(contract) =>
+                        contract.call(
+                            "setLotteryRules",
                             lotteryRules.numOfWinners,
                             lotteryRules.playersLimit,
                             lotteryRules.registrationAmount,
                             lotteryRules.adminFee,
-                            lotteryRules.tokenAddress,
-                        ])
+                            lotteryRules.tokenAddress
+                        )
                     }
                     className="m-2 p-2"
                 >
                     Start Lottery
                 </Web3Button>
-                {/* <span className={isLoading ? "" : error ? "text-red-600" : "text-green-600"}>
-                    {isLoading ? "": error? error.toString(): .toString()}
-                </span> */}
             </div>
         </div>
     )

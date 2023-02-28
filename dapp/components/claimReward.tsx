@@ -5,20 +5,20 @@ import {
     useContract,
     Web3Button,
 } from "@thirdweb-dev/react"
-import GetWinner from "./getWinner"
 
-export default function ClaimReward() {
-    const erccontractaddress = "0x7c19bC82119F535Ee18b759aAE81d4b5D95E4d3d"
-    const lotcontractaddress = "0x69e795F21B5De63914694aEd4994ad5B0198cd4A"
-    const { data: lotcontract } = useContract(lotcontractaddress)
-    const [winners, setWinners] = useState<any[]>([
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    ])
-    // useEffect(() => {
-    //     for (let i = 0; i < 10; i++) {
-    //         setWinners([...winners, GetWinner(i)])
-    //     }
-    // }, [winners, lotcontract])
+interface ClaimRewardProps {
+    lotContractAddress: string
+    numOfWinners: number
+}
+export default function ClaimReward({
+    lotContractAddress,
+    numOfWinners,
+}: ClaimRewardProps) {
+    const winners = []
+    for (let i = 0; i < numOfWinners; i++) {
+        winners.push(<GetWinner i={i} />)
+    }
+
     return (
         <div className="flex flex-col justify-center">
             <h1 className="text-center text-2xl m-2 p-2">Claim Rewards</h1>
@@ -27,7 +27,7 @@ export default function ClaimReward() {
                     Winner Addresses
                 </h2>
                 <Web3Button
-                    contractAddress={lotcontractaddress}
+                    contractAddress={lotContractAddress}
                     action={(contract) => {
                         contract.call("collectRewards")
                     }}
@@ -40,19 +40,30 @@ export default function ClaimReward() {
                         key={index}
                         className="flex justify-center m-2 p-2 align-middle"
                     >
-                        <GetWinner i={index} />
+                        {winner}
                     </div>
                 ))}
-                <Web3Button
-                    contractAddress={lotcontractaddress}
-                    action={(contract) => {
-                        contract.call("resetLottery")
-                    }}
-                    className="m-2 p-2"
-                >
-                    Reset Lottery
-                </Web3Button>
             </div>
         </div>
+    )
+}
+
+function GetWinner(props: any) {
+    const lotContractAddress = "0x8D89f72AcaF30e022a53Db0A941EDF60210c7C27"
+    const { data: lotcontract } = useContract(lotContractAddress)
+    const { data: winnerIndex } = useContractRead(
+        lotcontract,
+        "winnerIndexes",
+        props.i.toString()
+    )
+    const { data: winner } = useContractRead(
+        lotcontract,
+        "winnerAddresses",
+        winnerIndex
+    )
+    return (
+        <>
+            <div className="text-xl">{winner && winner.toString()}</div>
+        </>
     )
 }

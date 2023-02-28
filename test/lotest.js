@@ -10,7 +10,6 @@ contract("LotteryContract", (accounts) => {
             web3.utils.toWei("1"),
             "20",
             ERCContract.address,
-            "109283746578294762",
             { from: accounts[0] }
         )
         const status = await lotteryInstance.lotteryStatus()
@@ -73,7 +72,6 @@ contract("LotteryContract", (accounts) => {
     })
     it("should settle lottery", async () => {
         const lotteryInstance = await LotteryContract.deployed()
-        await lotteryInstance.getRandomNumber()
         await lotteryInstance.settleLottery()
 
         const status = await lotteryInstance.lotteryStatus()

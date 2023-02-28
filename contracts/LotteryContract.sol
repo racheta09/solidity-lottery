@@ -25,7 +25,7 @@ contract LotteryContract is ERC20, ReentrancyGuard, Ownable {
     }
 
     address[] public lotteryPlayers;
-    address public adminAddress;
+    // address public adminAddress;
     enum LotteryStatus {
         NOTSTARTED,
         INPROGRESS,
@@ -39,10 +39,10 @@ contract LotteryContract is ERC20, ReentrancyGuard, Ownable {
 
     IERC20 lotteryToken;
     LotteryStatus public lotteryStatus;
-    LotteryConfig lotteryConfig;
+    LotteryConfig public lotteryConfig;
 
-    bytes32 internal keyHash;
-    uint256 internal fee;
+    // bytes32 internal keyHash;
+    // uint256 internal fee;
     uint256 internal randomResult;
     bool internal areWinnersGenerated;
     bool internal isRandomNumberGenerated;
@@ -85,11 +85,11 @@ contract LotteryContract is ERC20, ReentrancyGuard, Ownable {
         // )
         ERC20("LotteryTokens", "LOT") //Internal LOT ERC20 token
     {
-        adminAddress = msg.sender;
+        // adminAddress = msg.sender;
         lotteryStatus = LotteryStatus.NOTSTARTED;
         totalLotteryPool = 0;
-        keyHash = 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4;
-        fee = 0.1 * 10**18; // 0.1 LINK
+        // keyHash = 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4;
+        // fee = 0.1 * 10**18; // 0.1 LINK
         areWinnersGenerated = false;
         isRandomNumberGenerated = false;
     }
@@ -159,11 +159,11 @@ contract LotteryContract is ERC20, ReentrancyGuard, Ownable {
         uint256 registrationAmount,
         uint256 adminFeePercentage,
         address lotteryTokenAddress // uint256 randomSeed
-    ) public {
-        require(
-            msg.sender == adminAddress,
-            "Starting the Lottery requires Admin Access"
-        );
+    ) public onlyOwner {
+        // require(
+        //     msg.sender == adminAddress,
+        //     "Starting the Lottery requires Admin Access"
+        // );
         require(
             lotteryStatus == LotteryStatus.NOTSTARTED,
             "Error: An existing lottery is in progress"
@@ -297,7 +297,7 @@ contract LotteryContract is ERC20, ReentrancyGuard, Ownable {
         );
         lotteryStatus = LotteryStatus.CLOSED;
 
-        lotteryToken.transfer(adminAddress, adminFeesAmount);
+        lotteryToken.transfer(owner(), adminFeesAmount);
 
         emit LotterySettled();
     }
@@ -360,18 +360,18 @@ contract LotteryContract is ERC20, ReentrancyGuard, Ownable {
      * - Only the address set at `adminAddress` can call this function.
      * - The Lottery has closed.
      */
-    function resetLottery() public {
-        require(
-            msg.sender == adminAddress,
-            "Resetting the Lottery requires Admin Access"
-        );
+    function resetLottery() public onlyOwner {
+        // require(
+        //     msg.sender == adminAddress,
+        //     "Resetting the Lottery requires Admin Access"
+        // );
         require(
             lotteryStatus == LotteryStatus.CLOSED,
             "Lottery Still in Progress"
         );
         uint256 tokenBalance = lotteryToken.balanceOf(address(this));
         if (tokenBalance > 0) {
-            lotteryToken.transfer(adminAddress, tokenBalance);
+            lotteryToken.transfer(owner(), tokenBalance);
         }
         delete lotteryConfig;
         delete randomResult;
