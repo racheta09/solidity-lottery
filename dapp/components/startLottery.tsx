@@ -87,7 +87,6 @@ export default function StartLottery({lotContractAddress}: StartLotteryProps) {
                             lotteryRules.tokenAddress
                         )
                     }
-                    className="m-2 p-2"
                 >
                     Start Lottery
                 </Web3Button>

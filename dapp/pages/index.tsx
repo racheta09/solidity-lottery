@@ -1,8 +1,6 @@
 import Head from "next/head"
 import { useState, useEffect } from "react"
 
-// import Image from "next/image"
-// import { Inter } from "@next/font/google"
 import { ConnectWallet } from "@thirdweb-dev/react"
 import {
     useContractWrite,
@@ -17,8 +15,7 @@ import EnterLottery from "@/components/enterLottery"
 import ClaimReward from "@/components/claimReward"
 import AdminSection from "@/components/adminSection"
 import NavBar from "@/components/navBar"
-// const inter = Inter({ subsets: ["latin"] })
-const erc20abi = [
+const erc20Abi = [
     {
         constant: true,
         inputs: [],
@@ -242,7 +239,7 @@ const erc20abi = [
 ]
 export default function Home() {
     const address = useAddress()
-    const lotContractAddress = "0x8D89f72AcaF30e022a53Db0A941EDF60210c7C27"
+    const lotContractAddress = "0x97f94F616403d95fF3BEE8c04f6f909c686356C0"
     const { data: lotcontract } = useContract(lotContractAddress)
     const { data: lotStatus } = useContractRead(lotcontract, "lotteryStatus")
     const { data: owner } = useContractRead(lotcontract, "owner")
@@ -277,9 +274,9 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <NavBar />
-            <main className="flex flex-col m-8 p-8 align-middle justify-center">
-                <div className="bg-gray-800 m-8 p-8">
-                    <h1 className="text-4xl text-center m-4 p-4">
+            <main className="flex flex-col m-2 p-2 align-middle justify-center">
+                <div className="bg-gray-800 m-2 p-2 rounded-xl">
+                    <h1 className="text-4xl text-center m-2 p-2">
                         Welcome to The Lottery Dapp
                     </h1>
                     {lotStatus == "0" ? (
@@ -291,12 +288,19 @@ export default function Home() {
                             ercContractAddress={lotData?.lotteryTokenAddress}
                             lotContractAddress={lotContractAddress}
                             registrationAmount={lotData?.registrationAmount}
+                            ercAbi={erc20Abi.toString()}
                         />
                     ) : (
-                        <ClaimReward
-                            lotContractAddress={lotContractAddress}
-                            numOfWinners={parseInt(lotData?.numberOfWinners)}
-                        />
+                        (lotStatus == "2" ? (
+                            <ClaimReward
+                                lotContractAddress={lotContractAddress}
+                                numOfWinners={parseInt(
+                                    lotData?.numberOfWinners
+                                )}
+                            />
+                        ) : (
+                            ""
+                        ))
                     )}
                     {owner && owner == address ? (
                         <AdminSection

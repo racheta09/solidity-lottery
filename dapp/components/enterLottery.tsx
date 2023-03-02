@@ -9,12 +9,14 @@ import {
 interface EnterLotteryProps {
     ercContractAddress: string
     lotContractAddress: string
-    registrationAmount: string
+    registrationAmount: string,
+    ercAbi: string
 }
 export default function EnterLottery({
     ercContractAddress,
     lotContractAddress,
     registrationAmount,
+    ercAbi
 }: EnterLotteryProps) {
     return (
         <div className="flex flex-col justify-center">
@@ -22,6 +24,7 @@ export default function EnterLottery({
             <h3 className="text-center text-xl m-2 p-2">Approve tokens and Enter Lottery</h3>
             <Web3Button
                 contractAddress={ercContractAddress}
+                contractAbi={ercAbi}
                 action={(contract) =>
                     contract.call(
                         "approve",
@@ -29,7 +32,6 @@ export default function EnterLottery({
                         registrationAmount
                     )
                 }
-                className="m-2 p-2"
             >
                 Approve {(parseInt(registrationAmount) * 10 ** -18).toFixed(2)} tokens
             </Web3Button>
@@ -37,7 +39,6 @@ export default function EnterLottery({
             <Web3Button
                 contractAddress={lotContractAddress}
                 action={(contract) => contract.call("enterLottery")}
-                className="m-2 p-2"
             >
                 Enter Lottery
             </Web3Button>

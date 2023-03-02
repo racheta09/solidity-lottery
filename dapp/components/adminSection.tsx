@@ -27,7 +27,6 @@ export default function AdminSection({
                     action={(contract) => {
                         contract.call("settleLottery")
                     }}
-                    className="m-2 p-2"
                 >
                     Settle Lottery
                 </Web3Button>
@@ -37,7 +36,6 @@ export default function AdminSection({
                     action={(contract) => {
                         contract.call("resetLottery")
                     }}
-                    className="m-2 p-2"
                 >
                     Reset Lottery
                 </Web3Button>

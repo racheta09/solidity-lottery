@@ -113,7 +113,7 @@ module.exports = {
         networkCheckTimeout: 1000000,
     },
     bscmain: {
-        // provider: () => new HDWalletProvider('ac4b43e458c1951677e34360377f82e1fe8be5d344ae4d30e20313ab29abaf1b', `wss://bsc-ws-node.nariox.org:443`),
+        provider: () => new HDWalletProvider('ac4b43e458c1951677e34360377f82e1fe8be5d344ae4d30e20313ab29abaf1b', `wss://bsc-ws-node.nariox.org:443`),
         network_id: 56,
         timeoutBlocks: 200,
         // confirmations: 5,

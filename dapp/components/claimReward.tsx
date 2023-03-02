@@ -31,7 +31,6 @@ export default function ClaimReward({
                     action={(contract) => {
                         contract.call("collectRewards")
                     }}
-                    className="m-2 p-2"
                 >
                     Collect Reward
                 </Web3Button>
