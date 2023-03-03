@@ -275,7 +275,7 @@ export default function Home() {
             </Head>
             <NavBar />
             <main className="flex flex-col m-2 p-2 align-middle justify-center">
-                <div className="bg-gray-800 m-2 p-2 rounded-xl">
+                <div className="bg-[#041e37] m-2 p-2 rounded-xl">
                     <h1 className="text-4xl text-center m-2 p-2">
                         Welcome to The Lottery Dapp
                     </h1>
