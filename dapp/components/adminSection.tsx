@@ -1,8 +1,4 @@
-import { useEffect, useState } from "react"
 import {
-    useContractWrite,
-    useContractRead,
-    useContract,
     Web3Button,
 } from "@thirdweb-dev/react"
 import StartLottery from "./startLottery"

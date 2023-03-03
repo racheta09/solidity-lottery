@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react"
 import {
-    useContractWrite,
     useContractRead,
     useContract,
     Web3Button,

@@ -1,20 +1,11 @@
 import Head from "next/head"
-import { useState, useEffect } from "react"
+import { useContractRead, useContract, useAddress } from "@thirdweb-dev/react"
 
-import { ConnectWallet } from "@thirdweb-dev/react"
-import {
-    useContractWrite,
-    useContractRead,
-    useContract,
-    Web3Button,
-    useAddress,
-} from "@thirdweb-dev/react"
-
-import StartLottery from "@/components/startLottery"
 import EnterLottery from "@/components/enterLottery"
 import ClaimReward from "@/components/claimReward"
 import AdminSection from "@/components/adminSection"
 import NavBar from "@/components/navBar"
+
 const erc20Abi = [
     {
         constant: true,
@@ -290,17 +281,13 @@ export default function Home() {
                             registrationAmount={lotData?.registrationAmount}
                             ercAbi={erc20Abi.toString()}
                         />
+                    ) : lotStatus == "2" ? (
+                        <ClaimReward
+                            lotContractAddress={lotContractAddress}
+                            numOfWinners={parseInt(lotData?.numberOfWinners)}
+                        />
                     ) : (
-                        (lotStatus == "2" ? (
-                            <ClaimReward
-                                lotContractAddress={lotContractAddress}
-                                numOfWinners={parseInt(
-                                    lotData?.numberOfWinners
-                                )}
-                            />
-                        ) : (
-                            ""
-                        ))
+                        ""
                     )}
                     {owner && owner == address ? (
                         <AdminSection

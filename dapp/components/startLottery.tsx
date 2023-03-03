@@ -33,7 +33,7 @@ export default function StartLottery({lotContractAddress}: StartLotteryProps) {
                     name="numOfWinners"
                     onChange={(e) => inputHandler(e, "numOfWinners")}
                     value={lotteryRules.numOfWinners}
-                    className="rounded m-2 p-2"
+                    className="rounded m-2 p-2 text-black"
                 />
                 <label htmlFor="playersLimit" className="m-2 p-2">
                     Players Limit:
@@ -43,7 +43,7 @@ export default function StartLottery({lotContractAddress}: StartLotteryProps) {
                     name="playersLimit"
                     onChange={(e) => inputHandler(e, "playersLimit")}
                     value={lotteryRules.playersLimit}
-                    className="rounded m-2 p-2"
+                    className="rounded m-2 p-2 text-black"
                 />
                 <label htmlFor="registrationAmount" className="m-2 p-2">
                     Registration Amount:
@@ -53,7 +53,7 @@ export default function StartLottery({lotContractAddress}: StartLotteryProps) {
                     name="registrationAmount"
                     onChange={(e) => inputHandler(e, "registrationAmount")}
                     value={lotteryRules.registrationAmount}
-                    className="rounded m-2 p-2"
+                    className="rounded m-2 p-2 text-black"
                 />
                 <label htmlFor="adminFee" className="m-2 p-2">
                     Admin Fee Percentage:
@@ -63,7 +63,7 @@ export default function StartLottery({lotContractAddress}: StartLotteryProps) {
                     name="adminFee"
                     onChange={(e) => inputHandler(e, "adminFee")}
                     value={lotteryRules.adminFee}
-                    className="rounded m-2 p-2"
+                    className="rounded m-2 p-2 text-black"
                 />
                 <label htmlFor="tokenAddress" className="m-2 p-2">
                     Token Address:
@@ -73,7 +73,7 @@ export default function StartLottery({lotContractAddress}: StartLotteryProps) {
                     name="tokenAddress"
                     onChange={(e) => inputHandler(e, "tokenAddress")}
                     value={lotteryRules.tokenAddress}
-                    className="rounded m-2 p-2"
+                    className="rounded m-2 p-2 text-black"
                 />
                 <Web3Button
                     contractAddress={lotContractAddress}
