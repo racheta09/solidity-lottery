@@ -1,12 +1,12 @@
-import {
-    useContractRead,
-    useContract,
-    Web3Button,
-} from "@thirdweb-dev/react"
+import { useContractRead, useContract, Web3Button } from "@thirdweb-dev/react"
 
 interface ClaimRewardProps {
     lotContractAddress: string
     numOfWinners: number
+}
+interface GetWinnerProps {
+    i: number
+    lotContractAddress: string
 }
 export default function ClaimReward({
     lotContractAddress,
@@ -14,9 +14,10 @@ export default function ClaimReward({
 }: ClaimRewardProps) {
     const winners = []
     for (let i = 0; i < numOfWinners; i++) {
-        winners.push(<GetWinner i={i} />)
+        winners.push(
+            <GetWinner i={i} lotContractAddress={lotContractAddress} />
+        )
     }
-
     return (
         <div className="flex flex-col justify-center">
             <h1 className="text-center text-2xl m-2 p-2">Claim Rewards</h1>
@@ -45,19 +46,19 @@ export default function ClaimReward({
     )
 }
 
-function GetWinner(props: any) {
-    const lotContractAddress = "0x8D89f72AcaF30e022a53Db0A941EDF60210c7C27"
+function GetWinner({ i, lotContractAddress }: GetWinnerProps) {
     const { data: lotcontract } = useContract(lotContractAddress)
     const { data: winnerIndex } = useContractRead(
         lotcontract,
         "winnerIndexes",
-        props.i.toString()
+        i.toString()
     )
     const { data: winner } = useContractRead(
         lotcontract,
         "winnerAddresses",
         winnerIndex
     )
+    console.log(winnerIndex, winner)
     return (
         <>
             <div className="text-xl">{winner && winner.toString()}</div>
