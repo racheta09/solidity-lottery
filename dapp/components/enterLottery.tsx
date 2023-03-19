@@ -1,15 +1,11 @@
-import { useState } from "react"
-import {
-    useContractWrite,
-    useContractRead,
-    useContract,
-    Web3Button,
-} from "@thirdweb-dev/react"
+import { useContractRead, useContract, Web3Button } from "@thirdweb-dev/react"
 
 interface EnterLotteryProps {
     ercContractAddress: string
     lotContractAddress: string
-    registrationAmount: string,
+    registrationAmount: string
+    numOfWinners: string
+    playersLimit: string
 }
 
 const erc20Abi = [
@@ -250,11 +246,26 @@ export default function EnterLottery({
     ercContractAddress,
     lotContractAddress,
     registrationAmount,
+    numOfWinners,
+    playersLimit,
 }: EnterLotteryProps) {
+    const { data: ercContract } = useContract(ercContractAddress)
+    const { data: ticker } = useContractRead(ercContract, "symbol")
+    const { data: lotContract } = useContract(lotContractAddress)
+    const { data: lotteryPool } = useContractRead(
+        lotContract,
+        "totalLotteryPool"
+    )
     return (
         <div className="flex flex-col justify-center">
             <h2 className="text-center text-3xl m-2 p-2">Lottery</h2>
-            <h3 className="text-center text-xl m-2 p-2">Approve tokens and Enter Lottery</h3>
+            <p>
+                Participants:{" "}
+                {parseInt(lotteryPool) / parseInt(registrationAmount)}/
+                {playersLimit.toString()}
+            </p>
+            <p>Winners: {numOfWinners.toString()}</p>
+            <h3 className="text-center text-xl m-2 p-2">Approve {ticker}</h3>
             <Web3Button
                 contractAddress={ercContractAddress}
                 contractAbi={erc20Abi}
@@ -266,7 +277,10 @@ export default function EnterLottery({
                     )
                 }
             >
-                Approve {(parseInt(registrationAmount) * 10 ** -18).toFixed(2)} tokens
+                Approve{" "}
+                {`${(parseInt(registrationAmount) * 10 ** -18).toFixed(
+                    2
+                )} ${ticker}`}
             </Web3Button>
             <h2 className="text-center text-xl m-2 p-2">Buy Ticket</h2>
             <Web3Button

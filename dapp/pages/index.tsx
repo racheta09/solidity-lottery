@@ -27,7 +27,7 @@ export default function Home() {
     //         lotteryTokenAddress: lotData?.lotteryTokenAddress,
     //     })
     // }, [lotData])
-    
+
     return (
         <>
             <Head>
@@ -57,6 +57,8 @@ export default function Home() {
                             ercContractAddress={lotData?.lotteryTokenAddress}
                             lotContractAddress={lotContractAddress}
                             registrationAmount={lotData?.registrationAmount}
+                            numOfWinners={lotData?.numOfWinners}
+                            playersLimit={lotData?.playersLimit}
                         />
                     ) : lotStatus == "2" ? (
                         <ClaimReward
