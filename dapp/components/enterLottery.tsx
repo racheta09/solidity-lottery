@@ -272,8 +272,7 @@ export default function EnterLottery({
     }
     return (
         <div className="flex flex-col items-center justify-center">
-            <div className="">
-                <h2 className="text-center text-3xl my-2 py-2">Lottery</h2>
+            <div className="flex flex-col items-center">
                 <div className="relative overflow-x-hidden shadow-md sm:rounded-lg">
                     <table className="w-screen text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -283,7 +282,7 @@ export default function EnterLottery({
                                     className="px-6 py-3 text-center"
                                     colSpan={2}
                                 >
-                                    Details
+                                    Lottery Details
                                 </th>
                             </tr>
                         </thead>
