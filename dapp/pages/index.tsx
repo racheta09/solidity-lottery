@@ -31,7 +31,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>BSC Lottery</title>
+                <title>Tauras Lottery</title>
                 <meta
                     name="description"
                     content="Binance Smart Chain Lottery"
