@@ -271,10 +271,10 @@ export default function EnterLottery({
         )
     }
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center justify-center">
             <div className="m-2 p-2 flex flex-col">
                 <h2 className="text-center text-3xl m-2 p-2">Lottery</h2>
-                <div className="relative shadow-md sm:rounded-lg">
+                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
