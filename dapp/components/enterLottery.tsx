@@ -421,7 +421,7 @@ function GetParticipant({ i, lotContractAddress }: GetParticipantProps) {
     const { data: participant } = useContractRead(
         lotcontract,
         "lotteryPlayers",
-        i.toString()
+        [i.toString()]
     )
     return (
         <th
