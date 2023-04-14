@@ -20,9 +20,9 @@ export default function ClaimReward({
     }
     return (
         <div className="flex flex-col justify-center">
-            <h1 className="text-center text-2xl m-2 p-2">Claim Rewards</h1>
+            <h1 className="text-center text-2xl my-2 py-2">Claim Rewards</h1>
             <div>
-                <h2 className="text-center text-xl m-2 p-2">
+                <h2 className="text-center text-xl my-2 py-2">
                     Winner Addresses
                 </h2>
                 <Web3Button
@@ -36,7 +36,7 @@ export default function ClaimReward({
                 {winners.map((winner: any, index: any) => (
                     <div
                         key={index}
-                        className="flex justify-center m-2 p-2 align-middle"
+                        className="flex justify-center my-2 py-2 align-middle"
                     >
                         {winner}
                     </div>
