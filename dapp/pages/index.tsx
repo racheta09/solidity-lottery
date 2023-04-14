@@ -13,20 +13,6 @@ export default function Home() {
     const { data: lotStatus } = useContractRead(lotcontract, "lotteryStatus")
     const { data: owner } = useContractRead(lotcontract, "owner")
     const { data: lotData } = useContractRead(lotcontract, "lotteryConfig")
-    // const [lotConfig, setLotConfig] = useState({
-    //     numberOfWinners: lotData?.numberOfWinners,
-    //     playersLimit: lotData?.playersLimit,
-    //     registrationAmount: lotData?.registrationAmount,
-    //     lotteryTokenAddress: lotData?.lotteryTokenAddress,
-    // })
-    // useEffect(() => {
-    //     setLotConfig({
-    //         numberOfWinners: lotData?.numberOfWinners,
-    //         playersLimit: lotData?.playersLimit,
-    //         registrationAmount: lotData?.registrationAmount,
-    //         lotteryTokenAddress: lotData?.lotteryTokenAddress,
-    //     })
-    // }, [lotData])
 
     return (
         <>
