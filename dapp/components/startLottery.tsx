@@ -5,10 +5,12 @@ import {
     useContract,
     Web3Button,
 } from "@thirdweb-dev/react"
-interface StartLotteryProps{
+interface StartLotteryProps {
     lotContractAddress: string
 }
-export default function StartLottery({lotContractAddress}: StartLotteryProps) {
+export default function StartLottery({
+    lotContractAddress,
+}: StartLotteryProps) {
     const [lotteryRules, setLotteryRules] = useState({
         numOfWinners: "",
         playersLimit: "",
@@ -78,14 +80,13 @@ export default function StartLottery({lotContractAddress}: StartLotteryProps) {
                 <Web3Button
                     contractAddress={lotContractAddress}
                     action={(contract) =>
-                        contract.call(
-                            "setLotteryRules",
+                        contract.call("setLotteryRules", [
                             lotteryRules.numOfWinners,
                             lotteryRules.playersLimit,
                             lotteryRules.registrationAmount,
                             lotteryRules.adminFee,
-                            lotteryRules.tokenAddress
-                        )
+                            lotteryRules.tokenAddress,
+                        ])
                     }
                 >
                     Start Lottery
