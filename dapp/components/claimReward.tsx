@@ -58,7 +58,6 @@ function GetWinner({ i, lotContractAddress }: GetWinnerProps) {
         "winnerAddresses",
         winnerIndex
     )
-    console.log(winnerIndex, winner)
     return (
         <>
             <div className="text-xl">{winner && winner.toString()}</div>

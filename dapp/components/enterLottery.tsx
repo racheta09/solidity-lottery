@@ -7,6 +7,10 @@ interface EnterLotteryProps {
     numOfWinners: string
     playersLimit: string
 }
+interface GetParticipantProps {
+    i: number
+    lotContractAddress: string
+}
 
 const erc20Abi = [
     {
@@ -256,39 +260,175 @@ export default function EnterLottery({
         lotContract,
         "totalLotteryPool"
     )
+    const participants = []
+    for (
+        let i = 0;
+        i < parseInt(lotteryPool) / parseInt(registrationAmount);
+        i++
+    ) {
+        participants.push(
+            <GetParticipant i={i} lotContractAddress={lotContractAddress} />
+        )
+    }
     return (
-        <div className="flex flex-col justify-center">
-            <h2 className="text-center text-3xl m-2 p-2">Lottery</h2>
-            <p>
-                Participants:{" "}
-                {parseInt(lotteryPool) / parseInt(registrationAmount)}/
-                {playersLimit.toString()}
-            </p>
-            <p>Winners: {numOfWinners.toString()}</p>
-            <h3 className="text-center text-xl m-2 p-2">Approve {ticker}</h3>
-            <Web3Button
-                contractAddress={ercContractAddress}
-                contractAbi={erc20Abi}
-                action={(contract) =>
-                    contract.call(
-                        "approve",
-                        lotContractAddress,
-                        registrationAmount
-                    )
-                }
-            >
-                Approve{" "}
-                {`${(parseInt(registrationAmount) * 10 ** -18).toFixed(
-                    2
-                )} ${ticker}`}
-            </Web3Button>
-            <h2 className="text-center text-xl m-2 p-2">Buy Ticket</h2>
-            <Web3Button
-                contractAddress={lotContractAddress}
-                action={(contract) => contract.call("enterLottery")}
-            >
-                Enter Lottery
-            </Web3Button>
+        <div className="flex flex-col items-center">
+            <div className="m-2 p-2 flex flex-col">
+                <h2 className="text-center text-3xl m-2 p-2">Lottery</h2>
+                <div className="relative shadow-md sm:rounded-lg">
+                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th
+                                    scope="col"
+                                    className="px-6 py-3 text-center"
+                                    colSpan={2}
+                                >
+                                    Details
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td className="px-6 py-4">Winners</td>
+                                <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                                >
+                                    {parseInt(numOfWinners)}
+                                </th>
+                            </tr>
+                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td className="px-6 py-4">Tickets Sold</td>
+                                <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                                >
+                                    {parseInt(lotteryPool) /
+                                        parseInt(registrationAmount)}
+                                </th>
+                            </tr>
+                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td className="px-6 py-4">Tickets Remaining</td>
+                                <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                                >
+                                    {parseInt(playersLimit) -
+                                        parseInt(lotteryPool) /
+                                            parseInt(registrationAmount)}
+                                </th>
+                            </tr>
+                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td className="px-6 py-4">Total Tickets</td>
+                                <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                                >
+                                    {parseInt(playersLimit)}
+                                </th>
+                            </tr>
+                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td className="px-6 py-4">Lottery Token</td>
+                                <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                                >
+                                    {ticker}
+                                </th>
+                            </tr>
+                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td className="px-6 py-4">Tickete Cost</td>
+                                <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                                >
+                                    {parseInt(registrationAmount)*1e-18} {ticker}
+                                </th>
+                            </tr>
+                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td className="px-6 py-4">Token Address</td>
+                                <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                                >
+                                    {ercContractAddress}
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 className="text-center text-xl m-2 p-2">
+                    Approve {ticker}
+                </h3>
+                <Web3Button
+                    contractAddress={ercContractAddress}
+                    contractAbi={erc20Abi}
+                    action={(contract) =>
+                        contract.call(
+                            "approve",
+                            lotContractAddress,
+                            registrationAmount
+                        )
+                    }
+                >
+                    Approve{" "}
+                    {`${(parseInt(registrationAmount) * 10 ** -18).toFixed(
+                        2
+                    )} ${ticker}`}
+                </Web3Button>
+                <h2 className="text-center text-xl m-2 p-2">Buy Ticket</h2>
+                <Web3Button
+                    contractAddress={lotContractAddress}
+                    action={(contract) => contract.call("enterLottery")}
+                >
+                    Enter Lottery
+                </Web3Button>
+            </div>
+            <div className="m-2 p-2">
+                <div className="relative shadow-md sm:rounded-lg">
+                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th
+                                    scope="col"
+                                    className="px-6 py-3 text-center"
+                                >
+                                    Participants Addresses
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {participants.map(
+                                (participant: any, index: any) => (
+                                    <tr
+                                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                        key={index}
+                                    >
+                                        {participant}
+                                    </tr>
+                                )
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+    )
+}
+
+function GetParticipant({ i, lotContractAddress }: GetParticipantProps) {
+    const { data: lotcontract } = useContract(lotContractAddress)
+    const { data: participant } = useContractRead(
+        lotcontract,
+        "lotteryPlayers",
+        i.toString()
+    )
+    return (
+        <th
+            scope="row"
+            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+        >
+            {participant && participant.toString()}
+        </th>
     )
 }
