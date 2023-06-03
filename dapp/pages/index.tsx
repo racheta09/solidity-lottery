@@ -8,7 +8,7 @@ import NavBar from "@/components/navBar"
 
 export default function Home() {
     const address = useAddress()
-    const lotContractAddress = "0x97f94F616403d95fF3BEE8c04f6f909c686356C0"
+    const lotContractAddress = "0x098148F5ff6b5D4629E0d6F5604be3FBb0030286"
     const { data: lotcontract } = useContract(lotContractAddress)
     const { data: lotStatus } = useContractRead(lotcontract, "lotteryStatus")
     const { data: owner } = useContractRead(lotcontract, "owner")
@@ -17,7 +17,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Tauras Lottery</title>
+                <title>Solidity Lottery</title>
                 <meta
                     name="description"
                     content="Binance Smart Chain Lottery"
