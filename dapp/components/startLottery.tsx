@@ -23,7 +23,7 @@ export default function StartLottery({
         setLotteryRules({ ...lotteryRules, [values]: e.target.value })
     }
     return (
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center min-w-max">
             <h1 className="text-center text-2xl m-2 p-2">Start Lottery</h1>
 
             <div className="flex flex-col justify-center">
@@ -88,6 +88,7 @@ export default function StartLottery({
                             lotteryRules.tokenAddress,
                         ])
                     }
+                    className="m-2 p-2 rounded"
                 >
                     Start Lottery
                 </Web3Button>

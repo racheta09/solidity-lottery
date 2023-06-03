@@ -13,8 +13,8 @@ export default function AdminSection({
     lotContractAddress,
 }: AdminSectionProps) {
     return (
-        <>
-            <h1 className="text-3xl text-center m-2 p-2"> Admin Function</h1>
+        <div className="min-w-max m-2 p-2">
+            <h1 className="text-3xl text-center m-2 p-2"> Admin Functions</h1>
             {lotStatus == "0" ? (
                 <StartLottery lotContractAddress={lotContractAddress} />
             ) : lotStatus == "1" ? (
@@ -36,6 +36,6 @@ export default function AdminSection({
                     Reset Lottery
                 </Web3Button>
             )}
-        </>
+        </div>
     )
 }
