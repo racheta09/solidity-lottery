@@ -56,7 +56,7 @@ function GetWinner({ i, lotContractAddress }: GetWinnerProps) {
     const { data: winner } = useContractRead(
         lotcontract,
         "winnerAddresses",
-        winnerIndex
+        [winnerIndex]
     )
     return (
         <>

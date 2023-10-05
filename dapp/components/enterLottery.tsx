@@ -413,7 +413,6 @@ function GetParticipant({ i, lotContractAddress }: GetParticipantProps) {
         "lotteryPlayers",
         [i]
     )
-    console.log(participant)
     return (
         <th
             scope="row"
