@@ -29,8 +29,8 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <NavBar />
-            <main className="flex flex-col items-center w-full">
-                <div className="bg-[#041e37]">
+            <main className="flex flex-col min-h-screen items-center w-full bg-[#041e37]">
+                <div className="">
                     <h1 className="text-4xl text-center my-2 py-2">
                         Welcome to The Lottery Dapp
                     </h1>

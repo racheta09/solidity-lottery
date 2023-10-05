@@ -6,7 +6,7 @@ const activeChainId = ChainId.BinanceSmartChainMainnet
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
-        <ThirdwebProvider activeChain={activeChainId}>
+        <ThirdwebProvider activeChain={activeChainId} clientId="02032423e6f95211cdec832c10bbeec0">
             <Component {...pageProps} />
         </ThirdwebProvider>
     )
